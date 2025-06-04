@@ -1,0 +1,82 @@
+/* Estilos generales */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-background-color: white;
+}
+
+/* Estilos para el título */
+.section-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+/* Estilos para los campos de texto */
+.text-field, .text-area, .combo-box {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+    -fx-padding: 6px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-background-color: white;
+    -fx-border-color: #3498db;
+}
+
+/* Estilos para los checkboxes */
+.check-box {
+    -fx-font-size: 14px;
+}
+
+.check-box .box {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #ddd;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #3498db;
+}
+
+/* Estilos para los botones */
+.menu-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+}
+
+.menu-button:hover {
+    -fx-background-color: #2980b9;
+    -fx-cursor: hand;
+}
+
+Button {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+}
+
+Button:hover {
+    -fx-background-color: #7f8c8d;
+    -fx-cursor: hand;
+}
+
+/* Panel contenedor */
+.content-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+.form-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+}
