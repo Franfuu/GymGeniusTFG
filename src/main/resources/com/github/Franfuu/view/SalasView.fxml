@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="root-pane"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.github.Franfuu.controllers.SalasController">
+
+    <!-- Header -->
+    <top>
+        <BorderPane styleClass="header-panel">
+            <left>
+                <Text fx:id="empleadoNombreText" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Empleado">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="20.0" top="10.0"/>
+                    </BorderPane.margin>
+                </Text>
+            </left>
+            <center>
+                <VBox alignment="CENTER" styleClass="profile-image-container">
+                    <ImageView fx:id="empleadoFotoView" fitHeight="90.0" fitWidth="90.0"
+                               pickOnBounds="true" preserveRatio="true" styleClass="profile-image"/>
+                </VBox>
+            </center>
+            <right>
+                <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#handleCerrarSesion"
+                        styleClass="logout-button" text="Cerrar Sesión">
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" right="20.0" top="10.0"/>
+                    </BorderPane.margin>
+                </Button>
+            </right>
+        </BorderPane>
+    </top>
+
+    <!-- Left Menu -->
+    <left>
+        <VBox spacing="15" styleClass="menu-panel">
+            <padding>
+                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0"/>
+            </padding>
+            <Button fx:id="clientesButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#showClientes"
+                    styleClass="menu-button" text="Clientes"/>
+            <Button fx:id="maquinasButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#showMaquinas"
+                    styleClass="menu-button" text="Máquinas"/>
+            <Button fx:id="salasButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#showSalas"
+                    styleClass="menu-button" text="Salas"/>
+            <Button fx:id="clasesButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#showClases"
+                    styleClass="menu-button" text="Clases"/>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <VBox alignment="CENTER" styleClass="content-panel">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <Label styleClass="section-title" text="Gestión de Salas">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="20.0"/>
+                </VBox.margin>
+            </Label>
+
+            <TableView fx:id="salasTable" prefHeight="455.0" prefWidth="1266.0" styleClass="table-view"
+                       VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="idColumn" maxWidth="80" minWidth="50" prefWidth="54.0" text="ID"/>
+                    <TableColumn fx:id="nombreColumn" prefWidth="129.0" text="Nombre"/>
+                    <TableColumn fx:id="capacidadMaximaColumn" prefWidth="117.0" text="Capacidad Máxima"/>
+                    <TableColumn fx:id="ubicacionColumn" prefWidth="114.0" text="Ubicación"/>
+                    <TableColumn fx:id="accionesColumn" maxWidth="121.0" minWidth="19.0" prefWidth="94.0"
+                                 text="Acciones"/>
+                </columns>
+            </TableView>
+
+            <!-- Botón de crear sala debajo de la tabla -->
+            <HBox alignment="CENTER_RIGHT" spacing="10" VBox.vgrow="NEVER">
+                <VBox.margin>
+                    <Insets top="15.0"/>
+                </VBox.margin>
+                <Button fx:id="crearSalaButton" mnemonicParsing="false" onAction="#crearSala" styleClass="menu-button"
+                        text="Crear Sala"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

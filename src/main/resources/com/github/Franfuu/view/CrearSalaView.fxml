@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="450.0" spacing="15" styleClass="content-panel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.controllers.CrearSalaController">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label styleClass="title-text" text="Crear Nueva Sala">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+
+    <GridPane hgap="10" vgap="15">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="100.0" prefWidth="164.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="275.0" minWidth="200.0" prefWidth="236.0" />
+        </columnConstraints>
+
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+
+        <!-- Nombre -->
+        <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <TextField fx:id="nombreField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <!-- Capacidad Máxima -->
+        <Label text="Capacidad Máxima:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <TextField fx:id="capacidadMaximaField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <!-- Ubicación -->
+        <Label text="Ubicación:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <TextField fx:id="ubicacionField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    </GridPane>
+
+    <HBox alignment="CENTER" spacing="20">
+        <Button fx:id="guardarButton" onAction="#handleGuardar" styleClass="menu-button" text="Guardar" />
+        <Button fx:id="cancelarButton" onAction="#handleCancelar" text="Cancelar" />
+    </HBox>
+</VBox>

@@ -1,0 +1,223 @@
+package com.github.Franfuu.controllers;
+
+import com.github.Franfuu.model.entities.Clase;
+import com.github.Franfuu.model.entities.Empleado;
+import com.github.Franfuu.model.entities.Sala;
+import com.github.Franfuu.services.ClaseService;
+import com.github.Franfuu.services.EmpleadoService;
+import com.github.Franfuu.services.SalaService;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
+
+import java.net.URL;
+import java.time.LocalTime;
+import java.util.*;
+
+public class CrearClaseController implements Initializable {
+
+    @FXML private TextField nombreField;
+    @FXML private TextArea descripcionArea;
+    @FXML private ComboBox<Empleado> instructorCombo;
+    @FXML private ComboBox<Sala> salaCombo;
+    @FXML private ComboBox<Integer> horaInicioCombo;
+    @FXML private ComboBox<Integer> minutoInicioCombo;
+    @FXML private ComboBox<Integer> horaFinCombo;
+    @FXML private ComboBox<Integer> minutoFinCombo;
+    @FXML private CheckBox lunesCheck;
+    @FXML private CheckBox martesCheck;
+    @FXML private CheckBox miercolesCheck;
+    @FXML private CheckBox juevesCheck;
+    @FXML private CheckBox viernesCheck;
+    @FXML private CheckBox sabadoCheck;
+    @FXML private CheckBox domingoCheck;
+    @FXML private Button guardarButton;
+    @FXML private Button cancelarButton;
+
+    private ClaseService claseService;
+    private EmpleadoService empleadoService;
+    private SalaService salaService;
+    private Empleado empleadoActual;
+
+    // Función para recibir el empleado actual
+    public void setEmpleadoActual(Empleado empleado) {
+        this.empleadoActual = empleado;
+        cargarDatos();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        claseService = new ClaseService();
+        empleadoService = new EmpleadoService();
+        salaService = new SalaService();
+
+        configurarHorarios();
+        configurarCombos();
+    }
+
+    private void cargarDatos() {
+        // Cargar instructores
+        List<Empleado> instructores = empleadoService.obtenerTodosLosEmpleados();
+        instructorCombo.setItems(FXCollections.observableArrayList(instructores));
+        instructorCombo.setValue(empleadoActual); // Seleccionar el empleado actual por defecto
+
+        // Cargar salas
+        List<Sala> salas = salaService.obtenerTodasLasSalas();
+        salaCombo.setItems(FXCollections.observableArrayList(salas));
+        if (!salas.isEmpty()) {
+            salaCombo.setValue(salas.get(0));
+        }
+    }
+
+    private void configurarHorarios() {
+        // Configurar comboboxes de horas (0-23)
+        Integer[] horas = new Integer[24];
+        for (int i = 0; i < 24; i++) {
+            horas[i] = i;
+        }
+        horaInicioCombo.setItems(FXCollections.observableArrayList(horas));
+        horaFinCombo.setItems(FXCollections.observableArrayList(horas));
+
+        // Configurar comboboxes de minutos (0, 15, 30, 45)
+        Integer[] minutos = {0, 15, 30, 45};
+        minutoInicioCombo.setItems(FXCollections.observableArrayList(minutos));
+        minutoFinCombo.setItems(FXCollections.observableArrayList(minutos));
+
+        // Valores por defecto
+        horaInicioCombo.setValue(9);
+        minutoInicioCombo.setValue(0);
+        horaFinCombo.setValue(10);
+        minutoFinCombo.setValue(0);
+    }
+
+    private void configurarCombos() {
+        // Configurar cómo se muestran los empleados
+        instructorCombo.setConverter(new StringConverter<Empleado>() {
+            @Override
+            public String toString(Empleado empleado) {
+                return empleado == null ? "" : empleado.getNombre() + " " + empleado.getApellido();
+            }
+
+            @Override
+            public Empleado fromString(String string) {
+                return null; // No es necesario para este caso
+            }
+        });
+
+        // Configurar cómo se muestran las salas
+        salaCombo.setConverter(new StringConverter<Sala>() {
+            @Override
+            public String toString(Sala sala) {
+                return sala == null ? "" : sala.getNombre() + " (Cap: " + sala.getCapacidadMaxima() + ")";
+            }
+
+            @Override
+            public Sala fromString(String string) {
+                return null; // No es necesario para este caso
+            }
+        });
+    }
+
+    @FXML
+    private void handleGuardar() {
+        try {
+            if (!validarCampos()) {
+                return;
+            }
+
+            Clase nuevaClase = new Clase();
+            nuevaClase.setNombre(nombreField.getText());
+            nuevaClase.setDescripcion(descripcionArea.getText());
+            nuevaClase.setIdEmpleado(instructorCombo.getValue());
+            nuevaClase.setSala(salaCombo.getValue());
+
+            // Configurar hora de inicio
+            LocalTime horaInicio = LocalTime.of(
+                horaInicioCombo.getValue(),
+                minutoInicioCombo.getValue()
+            );
+            nuevaClase.setHoraInicio(horaInicio);
+
+            // Configurar hora de fin
+            LocalTime horaFin = LocalTime.of(
+                horaFinCombo.getValue(),
+                minutoFinCombo.getValue()
+            );
+            nuevaClase.setHoraFin(horaFin);
+
+            // Configurar días de la semana seleccionados
+            nuevaClase.setDiasSemana(getDiasSeleccionados());
+
+            // Guardar clase
+            claseService.guardarClase(nuevaClase);
+
+            // Mostrar mensaje de éxito
+            mostrarMensaje(Alert.AlertType.INFORMATION, "Clase creada",
+                          "La clase ha sido creada correctamente.");
+
+            // Cerrar la ventana
+            Stage stage = (Stage) guardarButton.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            mostrarMensaje(Alert.AlertType.ERROR, "Error",
+                          "No se pudo crear la clase: " + e.getMessage());
+        }
+    }
+
+    private String getDiasSeleccionados() {
+        List<String> diasSeleccionados = new ArrayList<>();
+
+        if (lunesCheck.isSelected()) diasSeleccionados.add("Lunes");
+        if (martesCheck.isSelected()) diasSeleccionados.add("Martes");
+        if (miercolesCheck.isSelected()) diasSeleccionados.add("Miércoles");
+        if (juevesCheck.isSelected()) diasSeleccionados.add("Jueves");
+        if (viernesCheck.isSelected()) diasSeleccionados.add("Viernes");
+        if (sabadoCheck.isSelected()) diasSeleccionados.add("Sábado");
+        if (domingoCheck.isSelected()) diasSeleccionados.add("Domingo");
+
+        return String.join(",", diasSeleccionados);
+    }
+
+    private boolean validarCampos() {
+        if (nombreField.getText().trim().isEmpty()) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Campos incompletos", "El nombre es obligatorio");
+            return false;
+        }
+
+        if (instructorCombo.getValue() == null) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar un instructor");
+            return false;
+        }
+
+        if (salaCombo.getValue() == null) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar una sala");
+            return false;
+        }
+
+        if (!lunesCheck.isSelected() && !martesCheck.isSelected() && !miercolesCheck.isSelected() &&
+            !juevesCheck.isSelected() && !viernesCheck.isSelected() && !sabadoCheck.isSelected() &&
+            !domingoCheck.isSelected()) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar al menos un día");
+            return false;
+        }
+
+        return true;
+    }
+
+    @FXML
+    private void handleCancelar() {
+        Stage stage = (Stage) cancelarButton.getScene().getWindow();
+        stage.close();
+    }
+
+    private void mostrarMensaje(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+}
