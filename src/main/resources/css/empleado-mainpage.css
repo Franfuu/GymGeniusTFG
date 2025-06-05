@@ -31,6 +31,25 @@
     -fx-cursor: hand;
 }
 
+.login-tabs .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.login-tabs .tab {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-padding: 10px 15px;
+}
+
+.login-tabs .tab:selected {
+    -fx-background-color: white;
+}
+
+.login-tabs .tab-label {
+    -fx-text-fill: #555555;
+    -fx-font-weight: bold;
+}
+
 /* Estilos para el menú lateral */
 .menu-panel {
     -fx-background-color: #2c3e50;

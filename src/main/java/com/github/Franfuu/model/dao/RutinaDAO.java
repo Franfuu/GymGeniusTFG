@@ -34,10 +34,11 @@ public class RutinaDAO {
         Session session = connection.getSessionFactory();
         session.beginTransaction();
 
-        // Usar join fetch para cargar las relaciones con anticipación
+        // Usar JOIN FETCH para cargar los objetos relacionados en la misma consulta
         List<Rutina> rutinas = session.createQuery(
-                "SELECT DISTINCT r FROM Rutina r LEFT JOIN FETCH r.idCliente LEFT JOIN FETCH r.idEmpleado",
-                Rutina.class).list();
+                "SELECT DISTINCT r FROM Rutina r LEFT JOIN FETCH r.cliente LEFT JOIN FETCH r.empleado",
+                Rutina.class
+        ).list();
 
         session.getTransaction().commit();
         session.close();
@@ -69,9 +70,15 @@ public class RutinaDAO {
         Connection connection = Connection.getInstance();
         Session session = connection.getSessionFactory();
         session.beginTransaction();
-        List<Rutina> rutinas = session.createQuery("from Rutina r where r.idCliente = :cliente", Rutina.class)
+
+        // Corregir nombre de propiedad: idCliente -> cliente
+        List<Rutina> rutinas = session.createQuery(
+                        "FROM Rutina r WHERE r.cliente = :cliente",
+                        Rutina.class
+                )
                 .setParameter("cliente", cliente)
                 .list();
+
         session.getTransaction().commit();
         session.close();
         return rutinas;
@@ -81,9 +88,15 @@ public class RutinaDAO {
         Connection connection = Connection.getInstance();
         Session session = connection.getSessionFactory();
         session.beginTransaction();
-        List<Rutina> rutinas = session.createQuery("from Rutina r where r.idEmpleado = :empleado", Rutina.class)
+
+        // Corregir nombre de propiedad: idEmpleado -> empleado
+        List<Rutina> rutinas = session.createQuery(
+                        "FROM Rutina r WHERE r.empleado = :empleado",
+                        Rutina.class
+                )
                 .setParameter("empleado", empleado)
                 .list();
+
         session.getTransaction().commit();
         session.close();
         return rutinas;

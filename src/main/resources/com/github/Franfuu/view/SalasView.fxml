@@ -60,6 +60,8 @@
                     styleClass="menu-button" text="Salas"/>
             <Button fx:id="clasesButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#showClases"
                     styleClass="menu-button" text="Clases"/>
+            <Button fx:id="rutinasButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#showRutinas"
+                    styleClass="menu-button" text="Rutinas"/>
         </VBox>
     </left>
 

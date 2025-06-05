@@ -72,6 +72,8 @@ public class CrearClaseController implements Initializable {
         }
     }
 
+
+
     private void configurarHorarios() {
         // Configurar comboboxes de horas (0-23)
         Integer[] horas = new Integer[24];
@@ -182,6 +184,7 @@ public class CrearClaseController implements Initializable {
     }
 
     private boolean validarCampos() {
+        // Validaciones existentes
         if (nombreField.getText().trim().isEmpty()) {
             mostrarMensaje(Alert.AlertType.WARNING, "Campos incompletos", "El nombre es obligatorio");
             return false;
@@ -198,13 +201,70 @@ public class CrearClaseController implements Initializable {
         }
 
         if (!lunesCheck.isSelected() && !martesCheck.isSelected() && !miercolesCheck.isSelected() &&
-            !juevesCheck.isSelected() && !viernesCheck.isSelected() && !sabadoCheck.isSelected() &&
-            !domingoCheck.isSelected()) {
+                !juevesCheck.isSelected() && !viernesCheck.isSelected() && !sabadoCheck.isSelected() &&
+                !domingoCheck.isSelected()) {
             mostrarMensaje(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar al menos un día");
             return false;
         }
 
+        // Validar que hora inicio y fin no sean iguales
+        LocalTime horaInicio = LocalTime.of(horaInicioCombo.getValue(), minutoInicioCombo.getValue());
+        LocalTime horaFin = LocalTime.of(horaFinCombo.getValue(), minutoFinCombo.getValue());
+
+        if (horaInicio.equals(horaFin)) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Horario inválido",
+                    "La hora de inicio y fin no pueden ser iguales");
+            return false;
+        }
+
+        // Validar que no haya solapamiento con otras clases en la misma sala
+        Sala salaSeleccionada = salaCombo.getValue();
+        String diasSeleccionados = getDiasSeleccionados();
+
+        // Obtener todas las clases existentes
+        List<Clase> clasesExistentes = claseService.obtenerTodasLasClases();
+
+        for (Clase claseExistente : clasesExistentes) {
+            // Verificar si es la misma sala
+            if (claseExistente.getSala().getId().equals(salaSeleccionada.getId())) {
+                // Verificar si hay días en común
+                if (hayDiasEnComun(claseExistente.getDiasSemana(), diasSeleccionados)) {
+                    // Verificar si hay solapamiento de horarios
+                    LocalTime inicioExistente = claseExistente.getHoraInicio();
+                    LocalTime finExistente = claseExistente.getHoraFin();
+
+                    // Condición de solapamiento: (inicio1 <= fin2) Y (fin1 >= inicio2)
+                    if ((horaInicio.compareTo(finExistente) <= 0) && (horaFin.compareTo(inicioExistente) >= 0)) {
+                        mostrarMensaje(Alert.AlertType.WARNING, "Conflicto de horario",
+                                "Ya existe una clase programada en la sala " +
+                                        salaSeleccionada.getNombre() + " que se solapa con el horario seleccionado.");
+                        return false;
+                    }
+                }
+            }
+        }
+
         return true;
+    }
+
+    // Método auxiliar para verificar si hay días en común entre dos cadenas de días
+    private boolean hayDiasEnComun(String dias1, String dias2) {
+        if (dias1 == null || dias2 == null) {
+            return false;
+        }
+
+        String[] diasArray1 = dias1.split(",");
+        String[] diasArray2 = dias2.split(",");
+
+        Set<String> conjuntoDias1 = new HashSet<>(Arrays.asList(diasArray1));
+
+        for (String dia : diasArray2) {
+            if (conjuntoDias1.contains(dia)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @FXML

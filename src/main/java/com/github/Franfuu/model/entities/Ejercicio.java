@@ -1,6 +1,6 @@
 package com.github.Franfuu.model.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,8 +23,8 @@ public class Ejercicio {
     @Column(name = "grupo_muscular", length = 50)
     private String grupoMuscular;
 
-    @OneToMany(mappedBy = "idEjercicio")
-    private Set<com.github.Franfuu.model.entities.RutinaEjercicio> rutinaEjercicios = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "ejercicio")
+    private Set<RutinaEjercicio> rutinaEjercicios = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -58,12 +58,11 @@ public class Ejercicio {
         this.grupoMuscular = grupoMuscular;
     }
 
-    public Set<com.github.Franfuu.model.entities.RutinaEjercicio> getRutinaEjercicios() {
+    public Set<RutinaEjercicio> getRutinaEjercicios() {
         return rutinaEjercicios;
     }
 
-    public void setRutinaEjercicios(Set<com.github.Franfuu.model.entities.RutinaEjercicio> rutinaEjercicios) {
+    public void setRutinaEjercicios(Set<RutinaEjercicio> rutinaEjercicios) {
         this.rutinaEjercicios = rutinaEjercicios;
     }
-
 }
