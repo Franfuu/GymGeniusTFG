@@ -4,6 +4,8 @@ public enum Scenes {
     WELCOME("view/Welcome.fxml"), //ELEGIR ROL
     ROOT("view/layout.fxml"),
     LOGINCLIENTE("view/ClienteLoginView.fxml"),
+    CLIENTE_CLASES("view/ClienteClasesView.fxml"),
+    CLIENTE_RUTINAS("view/ClienteRutinasView.fxml"),
     MAQUINAS("view/MaquinasView.fxml"),
     SALAS("view/SalasView.fxml"),
     CLASES("view/ClasesView.fxml"),

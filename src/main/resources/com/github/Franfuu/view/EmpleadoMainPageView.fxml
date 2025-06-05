@@ -80,7 +80,7 @@
                 </VBox.margin>
             </Label>
 
-            <TableView fx:id="clientesTable" prefHeight="455.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="clientesTable" prefHeight="455.0" prefWidth="1300.0" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="idColumn" prefWidth="70.0" text="ID"/>
                     <TableColumn fx:id="nombreColumn" prefWidth="100.0" text="Nombre"/>
@@ -90,7 +90,7 @@
                     <TableColumn fx:id="fechaNacimientoColumn" prefWidth="120.0" text="F. Nacimiento"/>
                     <TableColumn fx:id="fechaRegistroColumn" prefWidth="120.0" text="F. Registro"/>
                     <TableColumn fx:id="estadoMembresiaColumn" prefWidth="80.0" text="Estado"/>
-                    <TableColumn fx:id="accionesColumn" prefWidth="90.0" text="Acciones"/>
+                    <TableColumn fx:id="accionesColumn" prefWidth="300.0" text="Acciones"/>
                 </columns>
             </TableView>
         </VBox>

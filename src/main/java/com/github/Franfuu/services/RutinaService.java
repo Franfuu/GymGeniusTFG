@@ -45,4 +45,13 @@ public class RutinaService {
     public List<Rutina> buscarRutinasPorNombre(String nombre) {
         return rutinaDAO.findByNombre(nombre);
     }
+
+    public List<Rutina> buscarRutinasPorTipo(String tipo) {
+        return rutinaDAO.findByTipo(tipo);
+    }
+
+
+    public List<Rutina> obtenerRutinasPorCliente(Integer clienteId) {
+        return rutinaDAO.findByClienteId(clienteId);
+    }
 }

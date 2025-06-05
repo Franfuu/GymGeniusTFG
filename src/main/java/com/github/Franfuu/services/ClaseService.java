@@ -43,7 +43,7 @@ public class ClaseService {
         }
 
         // Verificar que los valores estén exactamente como en la definición SQL
-        String[] valoresPermitidos = {"Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"};
+        String[] valoresPermitidos = {"Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
         String[] diasArray = diasSemana.split(",");
         StringBuilder resultado = new StringBuilder();
 

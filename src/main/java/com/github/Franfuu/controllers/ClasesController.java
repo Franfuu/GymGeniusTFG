@@ -183,7 +183,7 @@ public class ClasesController extends Controller implements Initializable {
         diasSemanaColumn.setCellFactory(column -> {
             return new TableCell<Clase, String>() {
                 private final Button button = new Button("Seleccionar días");
-                private final String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+                private final String[] diasSemana = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
                 private boolean[] selectedDays = new boolean[7];
 
                 {
@@ -244,7 +244,7 @@ public class ClasesController extends Controller implements Initializable {
                 }
 
                 private String getSelectedDaysAsString() {
-                    String[] valoresPermitidos = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+                    String[] valoresPermitidos = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
                     StringBuilder result = new StringBuilder();
 
                     for (int i = 0; i < diasSemana.length; i++) {

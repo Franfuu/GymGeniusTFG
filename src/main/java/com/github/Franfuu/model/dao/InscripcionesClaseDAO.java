@@ -107,4 +107,30 @@ public class InscripcionesClaseDAO {
         session.close();
         return inscripciones;
     }
+
+    public List<InscripcionesClase> findByClienteId(Integer clienteId) {
+        Connection connection = Connection.getInstance();
+        Session session = connection.getSessionFactory();
+        session.beginTransaction();
+        List<InscripcionesClase> inscripciones = session.createQuery("from InscripcionesClase i where i.idCliente.id = :clienteId", InscripcionesClase.class)
+                .setParameter("clienteId", clienteId)
+                .list();
+        session.getTransaction().commit();
+        session.close();
+        return inscripciones;
+    }
+
+    public List<InscripcionesClase> findCompleteByClienteId(Integer clienteId) {
+        Connection connection = Connection.getInstance();
+        Session session = connection.getSessionFactory();
+        session.beginTransaction();
+        List<InscripcionesClase> inscripciones = session.createQuery(
+                        "FROM InscripcionesClase i JOIN FETCH i.idClase WHERE i.idCliente.id = :clienteId",
+                        InscripcionesClase.class)
+                .setParameter("clienteId", clienteId)
+                .list();
+        session.getTransaction().commit();
+        session.close();
+        return inscripciones;
+    }
 }
