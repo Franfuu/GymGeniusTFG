@@ -45,7 +45,7 @@
 
                         <HBox alignment="CENTER" spacing="20">
                             <Button onAction="#handleLogin" styleClass="action-button" text="INICIAR SESIÓN" />
-                            <Button onAction="#volverAWelcome" styleClass="secondary-button" text="VOLVER" />
+                            <Button onAction="#volverAWelcome" styleClass="secondary-button" text="VOLVER"/>
                         </HBox>
                     </VBox>
                 </Tab>
@@ -100,7 +100,7 @@
 
                             <HBox alignment="CENTER" spacing="20">
                                 <Button onAction="#handleRegister" styleClass="action-button" text="REGISTRARSE" />
-                                <Button onAction="#volverAWelcome" styleClass="secondary-button" text="VOLVER" />
+                                <Button onAction="#volverAWelcome" styleClass="secondary-button" text="VOLVER"/>
                             </HBox>
                         </VBox>
                     </ScrollPane>
