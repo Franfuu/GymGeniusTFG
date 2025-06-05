@@ -113,4 +113,29 @@ public class RutinaDAO {
         session.close();
         return rutinas;
     }
+
+    public List<Rutina> findByTipo(String tipo) {
+        Connection connection = Connection.getInstance();
+        Session session = connection.getSessionFactory();
+        session.beginTransaction();
+        List<Rutina> rutinas = session.createQuery("from Rutina r where r.tipo like :tipo", Rutina.class)
+                .setParameter("tipo", "%" + tipo + "%")
+                .list();
+        session.getTransaction().commit();
+        session.close();
+        return rutinas;
+    }
+
+    // Método para obtener rutinas por cliente, aunque no está implementado en RutinaDAO
+    public List<Rutina> findByClienteId(Integer clienteId) {
+        Connection connection = Connection.getInstance();
+        Session session = connection.getSessionFactory();
+        session.beginTransaction();
+        List<Rutina> rutinas = session.createQuery("from Rutina r where r.cliente.id = :clienteId", Rutina.class)
+                .setParameter("clienteId", clienteId)
+                .list();
+        session.getTransaction().commit();
+        session.close();
+        return rutinas;
+    }
 }

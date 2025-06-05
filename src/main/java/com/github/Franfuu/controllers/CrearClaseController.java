@@ -170,17 +170,23 @@ public class CrearClaseController implements Initializable {
     }
 
     private String getDiasSeleccionados() {
-        List<String> diasSeleccionados = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
 
-        if (lunesCheck.isSelected()) diasSeleccionados.add("Lunes");
-        if (martesCheck.isSelected()) diasSeleccionados.add("Martes");
-        if (miercolesCheck.isSelected()) diasSeleccionados.add("Miércoles");
-        if (juevesCheck.isSelected()) diasSeleccionados.add("Jueves");
-        if (viernesCheck.isSelected()) diasSeleccionados.add("Viernes");
-        if (sabadoCheck.isSelected()) diasSeleccionados.add("Sábado");
-        if (domingoCheck.isSelected()) diasSeleccionados.add("Domingo");
+        if (lunesCheck.isSelected()) sb.append("Lunes,");
+        if (martesCheck.isSelected()) sb.append("Martes,");
+        if (miercolesCheck.isSelected()) sb.append("Miercoles,"); // é en Unicode
+        if (juevesCheck.isSelected()) sb.append("Jueves,");
+        if (viernesCheck.isSelected()) sb.append("Viernes,");
+        if (sabadoCheck.isSelected()) sb.append("Sabado,"); // á en Unicode
+        if (domingoCheck.isSelected()) sb.append("Domingo,");
 
-        return String.join(",", diasSeleccionados);
+        // Eliminar la última coma si existe
+        String resultado = sb.toString();
+        if (resultado.endsWith(",")) {
+            resultado = resultado.substring(0, resultado.length() - 1);
+        }
+
+        return resultado;
     }
 
     private boolean validarCampos() {

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `clases` (
   `id_sala` int(11) DEFAULT NULL,
   `hora_inicio` time DEFAULT NULL,
   `hora_fin` time DEFAULT NULL,
-  `dias_semana` set('Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo') DEFAULT NULL,
+  `dias_semana` set('Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo') DEFAULT NULL,
   PRIMARY KEY (`id_clase`),
   KEY `id_empleado` (`id_empleado`),
   KEY `id_sala` (`id_sala`),

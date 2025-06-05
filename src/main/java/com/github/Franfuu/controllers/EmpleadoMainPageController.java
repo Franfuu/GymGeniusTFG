@@ -3,15 +3,22 @@ package com.github.Franfuu.controllers;
 import com.github.Franfuu.App;
 import com.github.Franfuu.model.entities.Cliente;
 import com.github.Franfuu.model.entities.Empleado;
+import com.github.Franfuu.model.entities.InscripcionesClase;
+import com.github.Franfuu.model.entities.Rutina;
 import com.github.Franfuu.model.utils.ToggleSwitch;
 import com.github.Franfuu.services.ClienteService;
+import com.github.Franfuu.services.InscripcionesClaseService;
+import com.github.Franfuu.services.RutinaService;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -19,8 +26,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -229,34 +238,107 @@ public class EmpleadoMainPageController extends Controller implements Initializa
     }
 
     private void configureActionsColumn() {
-        accionesColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = new Button("X");
+                    accionesColumn.setCellFactory(param -> new TableCell<>() {
+                        private final Button deleteButton = new Button("X");
+                        private final Button clasesButton = new Button("Inscripciones");  // Icono para clases
+                        private final Button rutinasButton = new Button("Rutinas");  // Icono para rutinas
+                        private final HBox container = new HBox(5);
 
-            {
-                // Configurar botón de eliminar con texto y centrado
-                deleteButton.getStyleClass().add("delete-button");
-                deleteButton.setStyle("-fx-text-fill: red; -fx-font-weight: bold; -fx-background-color: transparent;");
-                deleteButton.setMaxWidth(Double.MAX_VALUE);
-                deleteButton.setAlignment(Pos.CENTER);
+                        {
+                            // Configurar botón de eliminar
+                            deleteButton.getStyleClass().add("delete-button");
+                            deleteButton.setStyle("-fx-text-fill: red; -fx-font-weight: bold; -fx-background-color: transparent;");
 
-                // Acción al hacer clic
-                deleteButton.setOnAction(event -> {
-                    Cliente cliente = getTableView().getItems().get(getIndex());
-                    deleteCliente(cliente);
-                });
-            }
+                            // Configurar botón para ver clases
+                            clasesButton.setStyle("-fx-text-fill: blue; -fx-font-weight: bold; -fx-background-color: transparent;");
+                            clasesButton.setTooltip(new Tooltip("Ver clases del cliente"));
 
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(deleteButton);
-                    setAlignment(Pos.CENTER);
+                            // Configurar botón para ver rutinas
+                            rutinasButton.setStyle("-fx-text-fill: green; -fx-font-weight: bold; -fx-background-color: transparent;");
+                            rutinasButton.setTooltip(new Tooltip("Ver rutinas del cliente"));
+
+                            // Agregar todos los botones al contenedor
+                            container.getChildren().addAll(clasesButton, rutinasButton, deleteButton);
+                            container.setAlignment(Pos.CENTER);
+
+                            // Acción del botón eliminar
+                            deleteButton.setOnAction(event -> {
+                                Cliente cliente = getTableView().getItems().get(getIndex());
+                                deleteCliente(cliente);
+                            });
+
+                            // Acción para ver clases del cliente
+                            clasesButton.setOnAction(event -> {
+                                Cliente cliente = getTableView().getItems().get(getIndex());
+                                mostrarClasesCliente(cliente);
+                            });
+
+                            // Acción para ver rutinas del cliente
+                            rutinasButton.setOnAction(event -> {
+                                Cliente cliente = getTableView().getItems().get(getIndex());
+                                mostrarRutinasCliente(cliente);
+                            });
+                        }
+
+                        @Override
+                        protected void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setGraphic(null);
+                            } else {
+                                setGraphic(container);
+                                setAlignment(Pos.CENTER);
+                            }
+                        }
+                    });
                 }
-            }
-        });
+
+    private void mostrarClasesCliente(Cliente cliente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/Franfuu/view/ClienteClasesView.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador y pasar el cliente seleccionado
+            ClienteClasesController controller = loader.getController();
+            controller.inicializarDatos(cliente);
+
+            Stage stage = new Stage();
+            stage.setTitle("Clases de " + cliente.getNombre() + " " + cliente.getApellido());
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/crearview.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(anchorPane.getScene().getWindow());
+            stage.showAndWait();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al mostrar clases del cliente", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarRutinasCliente(Cliente cliente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/Franfuu/view/ClienteRutinasView.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador y pasar el cliente seleccionado
+            ClienteRutinasController controller = loader.getController();
+            controller.inicializarDatos(cliente);
+
+            Stage stage = new Stage();
+            stage.setTitle("Rutinas de " + cliente.getNombre() + " " + cliente.getApellido());
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/crearview.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(anchorPane.getScene().getWindow());
+            stage.showAndWait();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al mostrar rutinas del cliente", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void loadClientesData() {

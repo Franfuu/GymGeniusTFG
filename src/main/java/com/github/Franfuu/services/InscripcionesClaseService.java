@@ -53,4 +53,13 @@ public class InscripcionesClaseService {
     public List<InscripcionesClase> buscarInscripcionesPorEstado(String estado) {
         return inscripcionesClaseDAO.findByEstado(estado);
     }
+
+
+    public List<InscripcionesClase> obtenerInscripcionesPorCliente(Integer clienteId) {
+        return inscripcionesClaseDAO.findByClienteId(clienteId);
+    }
+
+    public List<InscripcionesClase> obtenerInscripcionesCompletasPorCliente(Integer ClieteId) {
+        return inscripcionesClaseDAO.findCompleteByClienteId(ClieteId);
+    }
 }
