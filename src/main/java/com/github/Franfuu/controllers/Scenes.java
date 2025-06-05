@@ -8,7 +8,7 @@ public enum Scenes {
     SALAS("view/SalasView.fxml"),
     CLASES("view/ClasesView.fxml"),
     LOGINEMPLEADO("view/EmpleadoLoginView.fxml"),
-    MAINPAGE_CLIENTE("view/ClienteMainPage.fxml"),
+    MAINPAGE_CLIENTE("/com/github/Franfuu/view/ClienteMainPageView.fxml"),
     MAINPAGE_EMPLEADO("view/EmpleadoMainPageView.fxml");
 
 

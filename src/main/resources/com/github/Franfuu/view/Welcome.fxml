@@ -19,7 +19,7 @@
             </font>
          </Text>
 
-         <ImageView fitHeight="149.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Portada.png" />
             </image>

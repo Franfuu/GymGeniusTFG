@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `clases` (
   KEY `id_sala` (`id_sala`),
   CONSTRAINT `clases_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`),
   CONSTRAINT `clases_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -52,7 +52,18 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `foto` longblob DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gymgenius.ejercicios
+CREATE TABLE IF NOT EXISTS `ejercicios` (
+  `id_ejercicio` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `grupo_muscular` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_ejercicio`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -68,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   `foto` longblob DEFAULT NULL,
   PRIMARY KEY (`id_empleado`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -83,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `inscripciones_clases` (
   KEY `id_clase` (`id_clase`),
   CONSTRAINT `inscripciones_clases_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
   CONSTRAINT `inscripciones_clases_ibfk_2` FOREIGN KEY (`id_clase`) REFERENCES `clases` (`id_clase`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -98,7 +109,41 @@ CREATE TABLE IF NOT EXISTS `maquinas` (
   PRIMARY KEY (`id_maquina`),
   KEY `id_sala` (`id_sala`),
   CONSTRAINT `maquinas_ibfk_1` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gymgenius.rutinas
+CREATE TABLE IF NOT EXISTS `rutinas` (
+  `id_rutina` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `id_empleado` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha_creacion` date DEFAULT curdate(),
+  PRIMARY KEY (`id_rutina`),
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_empleado` (`id_empleado`),
+  CONSTRAINT `rutinas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
+  CONSTRAINT `rutinas_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gymgenius.rutina_ejercicios
+CREATE TABLE IF NOT EXISTS `rutina_ejercicios` (
+  `id_rutina_ejercicio` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rutina` int(11) NOT NULL,
+  `id_ejercicio` int(11) NOT NULL,
+  `series` int(11) DEFAULT NULL,
+  `repeticiones` int(11) DEFAULT NULL,
+  `descanso_segundos` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_rutina_ejercicio`),
+  KEY `id_rutina` (`id_rutina`),
+  KEY `id_ejercicio` (`id_ejercicio`),
+  CONSTRAINT `rutina_ejercicios_ibfk_1` FOREIGN KEY (`id_rutina`) REFERENCES `rutinas` (`id_rutina`) ON DELETE CASCADE,
+  CONSTRAINT `rutina_ejercicios_ibfk_2` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -109,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `salas` (
   `capacidad_maxima` int(11) DEFAULT NULL,
   `ubicacion` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 

@@ -49,4 +49,8 @@ public class InscripcionesClaseService {
     public boolean clienteYaInscrito(Cliente cliente, Clase clase) {
         return buscarInscripcionPorClienteYClase(cliente, clase) != null;
     }
+
+    public List<InscripcionesClase> buscarInscripcionesPorEstado(String estado) {
+        return inscripcionesClaseDAO.findByEstado(estado);
+    }
 }
