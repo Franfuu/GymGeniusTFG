@@ -68,7 +68,7 @@
 /* Campos de texto */
 .input-field, .date-picker {
     -fx-background-color: #f8f8f8;
-    -fx-border-color: #dddddd;
+    -fx-border-color: #747474;
     -fx-border-radius: 5;
     -fx-padding: 10px;
     -fx-font-size: 14px;

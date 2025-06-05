@@ -1,8 +1,6 @@
 package com.github.Franfuu.model.entities;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "rutina_ejercicios")
@@ -12,14 +10,13 @@ public class RutinaEjercicio {
     @Column(name = "id_rutina_ejercicio", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "id_rutina", nullable = false)
-    private com.github.Franfuu.model.entities.Rutina idRutina;
+    @ManyToOne
+    @JoinColumn(name = "id_rutina")
+    private Rutina rutina;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_ejercicio", nullable = false)
-    private Ejercicio idEjercicio;
+    @ManyToOne
+    @JoinColumn(name = "id_ejercicio")
+    private Ejercicio ejercicio;
 
     @Column(name = "series")
     private Integer series;
@@ -38,20 +35,20 @@ public class RutinaEjercicio {
         this.id = id;
     }
 
-    public com.github.Franfuu.model.entities.Rutina getIdRutina() {
-        return idRutina;
+    public Rutina getRutina() {
+        return rutina;
     }
 
-    public void setIdRutina(com.github.Franfuu.model.entities.Rutina idRutina) {
-        this.idRutina = idRutina;
+    public void setRutina(Rutina rutina) {
+        this.rutina = rutina;
     }
 
-    public Ejercicio getIdEjercicio() {
-        return idEjercicio;
+    public Ejercicio getEjercicio() {
+        return ejercicio;
     }
 
-    public void setIdEjercicio(Ejercicio idEjercicio) {
-        this.idEjercicio = idEjercicio;
+    public void setEjercicio(Ejercicio ejercicio) {
+        this.ejercicio = ejercicio;
     }
 
     public Integer getSeries() {
@@ -77,5 +74,4 @@ public class RutinaEjercicio {
     public void setDescansoSegundos(Integer descansoSegundos) {
         this.descansoSegundos = descansoSegundos;
     }
-
 }

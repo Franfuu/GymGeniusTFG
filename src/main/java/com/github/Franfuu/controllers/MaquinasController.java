@@ -331,4 +331,13 @@ public class MaquinasController extends Controller implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar la vista de clases", e.getMessage());
         }
     }
+
+    @FXML
+    void showRutinas() {
+        try {
+            App.currentController.changeScene(Scenes.RUTINAS, empleadoActual);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar la vista de rutinas", e.getMessage());
+        }
+    }
 }

@@ -7,6 +7,9 @@ public enum Scenes {
     MAQUINAS("view/MaquinasView.fxml"),
     SALAS("view/SalasView.fxml"),
     CLASES("view/ClasesView.fxml"),
+    RUTINAS("view/RutinasView.fxml"),
+    CREAR_RUTINA("view/CrearRutinaView.fxml"),
+    CREAR_EJERCICIO("view/CrearEjercicioView.fxml"),
     LOGINEMPLEADO("view/EmpleadoLoginView.fxml"),
     MAINPAGE_CLIENTE("/com/github/Franfuu/view/ClienteMainPageView.fxml"),
     MAINPAGE_EMPLEADO("view/EmpleadoMainPageView.fxml");

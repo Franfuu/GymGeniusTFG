@@ -1,8 +1,10 @@
 package com.github.Franfuu.model.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "rutinas")
@@ -14,11 +16,11 @@ public class Rutina {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente idCliente;
+    private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_empleado", nullable = false)
-    private Empleado idEmpleado;
+    private Empleado empleado;
 
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
@@ -30,6 +32,9 @@ public class Rutina {
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion;
 
+    @OneToMany(mappedBy = "rutina", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RutinaEjercicio> rutinaEjercicios = new LinkedHashSet<>();
+
     public Integer getId() {
         return id;
     }
@@ -38,20 +43,20 @@ public class Rutina {
         this.id = id;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public Empleado getIdEmpleado() {
-        return idEmpleado;
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
-    public void setIdEmpleado(Empleado idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
     public String getNombre() {
@@ -78,4 +83,11 @@ public class Rutina {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public Set<RutinaEjercicio> getRutinaEjercicios() {
+        return rutinaEjercicios;
+    }
+
+    public void setRutinaEjercicios(Set<RutinaEjercicio> rutinaEjercicios) {
+        this.rutinaEjercicios = rutinaEjercicios;
+    }
 }

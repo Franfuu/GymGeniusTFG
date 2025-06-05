@@ -449,4 +449,13 @@ public class ClasesController extends Controller implements Initializable {
     public void onClose(Object output) {
         // Limpieza al cerrar
     }
+
+    @FXML
+    void showRutinas() {
+        try {
+            App.currentController.changeScene(Scenes.RUTINAS, empleadoActual);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar la vista de rutinas", e.getMessage());
+        }
+    }
 }

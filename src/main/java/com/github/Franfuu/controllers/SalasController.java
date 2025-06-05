@@ -19,6 +19,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -276,6 +278,15 @@ public class SalasController extends Controller implements Initializable {
             App.currentController.changeScene(Scenes.CLASES, empleadoActual);
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar la vista de clases", e.getMessage());
+        }
+    }
+
+    @FXML
+    void showRutinas() {
+        try {
+            App.currentController.changeScene(Scenes.RUTINAS, empleadoActual);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al cargar la vista de rutinas", e.getMessage());
         }
     }
 

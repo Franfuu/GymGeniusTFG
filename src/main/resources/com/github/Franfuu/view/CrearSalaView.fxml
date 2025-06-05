@@ -37,23 +37,23 @@
 
         <!-- Nombre -->
         <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font></Label>
         <TextField fx:id="nombreField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
         <!-- Capacidad Máxima -->
         <Label text="Capacidad Máxima:" GridPane.columnIndex="0" GridPane.rowIndex="1">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font></Label>
         <TextField fx:id="capacidadMaximaField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
         <!-- Ubicación -->
         <Label text="Ubicación:" GridPane.columnIndex="0" GridPane.rowIndex="2">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font></Label>
         <TextField fx:id="ubicacionField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     </GridPane>
 

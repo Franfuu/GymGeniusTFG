@@ -1,52 +1,63 @@
-/* Estilos generales */
-.root {
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
+/* Estilos para la vista de crear formularios */
+.content-panel {
     -fx-background-color: white;
+    -fx-padding: 20px;
 }
 
-/* Estilos para el título */
+.title-text {
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
 .section-title {
     -fx-text-fill: #2c3e50;
     -fx-font-weight: bold;
     -fx-font-size: 18px;
 }
 
-/* Estilos para los campos de texto */
-.text-field, .text-area, .combo-box {
-    -fx-background-color: #f5f5f5;
+.form-field {
+    -fx-background-color: #f9f9f9;
     -fx-border-color: #ddd;
     -fx-border-radius: 3px;
-    -fx-padding: 6px;
-    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-font-size: 16px;
 }
 
-.text-field:focused, .text-area:focused, .combo-box:focused {
-    -fx-background-color: white;
-    -fx-border-color: #3498db;
-}
-
-/* Estilos para los checkboxes */
-.check-box {
-    -fx-font-size: 14px;
-}
-
-.check-box .box {
-    -fx-background-color: #f5f5f5;
+/* Estilos para ComboBox */
+.combo-box {
+    -fx-background-color: #f9f9f9;
     -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+    -fx-font-size: 16px;
 }
 
-.check-box:selected .mark {
-    -fx-background-color: #3498db;
+.combo-box .list-cell {
+    -fx-padding: 8px;
 }
 
-/* Estilos para los botones */
+/* Estilos para TextArea */
+.text-area {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+    -fx-font-size: 16px;
+}
+
+.table-view {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+}
+
+/* Botones */
 .menu-button {
     -fx-background-color: #3498db;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
     -fx-background-radius: 5;
-    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 16px;
 }
 
 .menu-button:hover {
@@ -55,28 +66,65 @@
 }
 
 Button {
-    -fx-background-color: #95a5a6;
+    -fx-background-color: #e74c3c;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
     -fx-background-radius: 5;
-    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 16px;
 }
 
 Button:hover {
-    -fx-background-color: #7f8c8d;
+    -fx-background-color: #c0392b;
     -fx-cursor: hand;
 }
 
-/* Panel contenedor */
-.content-panel {
-    -fx-background-color: white;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+/* Botón de eliminar en la tabla */
+.delete-button {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
 }
-.form-field:focused {
-    -fx-background-color: white;
-    -fx-border-color: #3498db;
-    -fx-border-width: 2px;
+
+.delete-button:hover {
+    -fx-opacity: 0.7;
+    -fx-cursor: hand;
 }
+/* Estilos de tabla mejorados */
+.table-view {
+    -fx-table-cell-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #3498db;
+    -fx-background-radius: 5 5 0 0;
+    -fx-padding: 5px;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 45px;
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.table-view .table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 16px;
+    -fx-padding: 8px;
+}
+
+/* Mayor altura para las filas */
+.table-row-cell {
+    -fx-cell-size: 45px;
+}
+

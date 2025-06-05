@@ -22,5 +22,8 @@
     <mapping class="com.github.Franfuu.model.entities.Maquina"/>
     <mapping class="com.github.Franfuu.model.entities.Empleado"/>
     <mapping class="com.github.Franfuu.model.entities.Sala"/>
+    <mapping class="com.github.Franfuu.model.entities.Ejercicio"/>
+    <mapping class="com.github.Franfuu.model.entities.RutinaEjercicio"/>
+    <mapping class="com.github.Franfuu.model.entities.Rutina"/>
   </session-factory>
 </hibernate-configuration>

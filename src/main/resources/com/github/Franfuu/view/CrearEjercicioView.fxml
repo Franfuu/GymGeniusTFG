@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="500.0" styleClass="root-pane"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.github.Franfuu.controllers.CrearEjercicioController">
+
+    <VBox alignment="CENTER" spacing="20" styleClass="content-panel" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
+
+        <Label styleClass="section-title" text="Crear Nuevo Ejercicio">
+            <font>
+                <Font size="22.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="15.0"/>
+            </VBox.margin>
+        </Label>
+
+        <GridPane hgap="15" vgap="15" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100" prefWidth="130" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="300" />
+            </columnConstraints>
+
+            <!-- Nombre del ejercicio -->
+            <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+            </Label>
+            <TextField fx:id="txtNombre" promptText="Ingrese el nombre del ejercicio"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <!-- Grupo muscular -->
+            <Label text="Grupo Muscular:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+            </Label>
+            <ComboBox fx:id="comboGrupoMuscular" promptText="Seleccione grupo muscular"
+                      GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" />
+
+            <!-- Descripción -->
+            <Label text="Descripción:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+            </Label>
+            <TextArea fx:id="txtDescripcion" promptText="Ingrese una descripción del ejercicio"
+                      wrapText="true" prefRowCount="5" prefHeight="100.0"
+                      GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        </GridPane>
+
+        <HBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets top="15.0" />
+            </padding>
+            <Button fx:id="btnCancelar" text="Cancelar" onAction="#cancelar" styleClass="menu-button" />
+            <Button fx:id="btnGuardar" text="Guardar" onAction="#guardarEjercicio" styleClass="menu-button" />
+        </HBox>
+    </VBox>
+</AnchorPane>
