@@ -77,6 +77,12 @@
                     <Font size="18.0"/>
                 </font>
             </Button>
+            <Button fx:id="verRutinasButton" mnemonicParsing="false" onAction="#handleVerRutinas"
+                    styleClass="menu-button" text="Ver mis rutinas">
+                <font>
+                    <Font size="18.0"/>
+                </font>
+            </Button>
         </VBox>
     </center>
 </BorderPane>

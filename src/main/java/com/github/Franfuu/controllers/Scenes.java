@@ -10,6 +10,7 @@ public enum Scenes {
     SALAS("view/SalasView.fxml"),
     CLASES("view/ClasesView.fxml"),
     RUTINAS("view/RutinasView.fxml"),
+    CLIENTE_VE_RUTINAS("view/ClienteVeRutinasView.fxml"),
     CREAR_RUTINA("view/CrearRutinaView.fxml"),
     CREAR_EJERCICIO("view/CrearEjercicioView.fxml"),
     LOGINEMPLEADO("view/EmpleadoLoginView.fxml"),

@@ -66,10 +66,13 @@ public class RutinaEjercicioDAO {
         Connection connection = Connection.getInstance();
         Session session = connection.getSessionFactory();
         session.beginTransaction();
+
+        // Corregir el nombre de la propiedad: de 'idRutina' a 'rutina'
         List<RutinaEjercicio> rutinaEjercicios = session.createQuery(
-                        "from RutinaEjercicio re where re.idRutina = :rutina", RutinaEjercicio.class)
+                        "from RutinaEjercicio re where re.rutina = :rutina", RutinaEjercicio.class)
                 .setParameter("rutina", rutina)
                 .list();
+
         session.getTransaction().commit();
         session.close();
         return rutinaEjercicios;
@@ -79,10 +82,13 @@ public class RutinaEjercicioDAO {
         Connection connection = Connection.getInstance();
         Session session = connection.getSessionFactory();
         session.beginTransaction();
+
+        // Corregir el nombre de la propiedad: de 'idEjercicio' a 'ejercicio'
         List<RutinaEjercicio> rutinaEjercicios = session.createQuery(
-                        "from RutinaEjercicio re where re.idEjercicio = :ejercicio", RutinaEjercicio.class)
+                        "from RutinaEjercicio re where re.ejercicio = :ejercicio", RutinaEjercicio.class)
                 .setParameter("ejercicio", ejercicio)
                 .list();
+
         session.getTransaction().commit();
         session.close();
         return rutinaEjercicios;
@@ -92,9 +98,12 @@ public class RutinaEjercicioDAO {
         Connection connection = Connection.getInstance();
         Session session = connection.getSessionFactory();
         session.beginTransaction();
-        session.createQuery("delete from RutinaEjercicio re where re.idRutina.id = :rutinaId")
+
+        // Corregir el nombre de la propiedad
+        session.createQuery("delete from RutinaEjercicio re where re.rutina.id = :rutinaId")
                 .setParameter("rutinaId", rutinaId)
                 .executeUpdate();
+
         session.getTransaction().commit();
         session.close();
     }

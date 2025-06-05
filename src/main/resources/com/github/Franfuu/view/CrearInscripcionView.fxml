@@ -42,16 +42,7 @@
                 </HBox>
 
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <children>
-                        <Label styleClass="form-label" text="Filtrar por nombre:">
-                            <font>
-                                <Font size="18.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="filtroTextField" promptText="Buscar clase por nombre"/>
-                        <Button mnemonicParsing="false" onAction="#filtrarClases" styleClass="menu-button"
-                                text="Buscar"/>
-                    </children>
+
                 </HBox>
 
                 <Label styleClass="section-label" text="Clases Disponibles">

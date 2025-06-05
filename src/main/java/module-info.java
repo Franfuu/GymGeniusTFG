@@ -6,10 +6,10 @@ module com.github.Franfuu {
     requires jakarta.persistence;
     requires mysql.connector.j;
     requires org.jfree.jfreechart;
-    requires java.desktop;
     requires itextpdf;
     requires java.naming;
     requires java.persistence;
+    requires org.apache.poi.ooxml;
 
     opens com.github.Franfuu.controllers to javafx.fxml;
     exports com.github.Franfuu.controllers;

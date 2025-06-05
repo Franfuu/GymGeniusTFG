@@ -129,6 +129,37 @@ public class ClienteMainPageController extends Controller implements Initializab
         }
     }
 
+    @FXML
+    void handleVerRutinas() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/Franfuu/view/ClienteVeRutinas.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador correcto
+            ClienteVeRutinasController controller = loader.getController();
+            controller.setClienteActual(clienteActual);
+
+            // Configurar la escena
+            Stage stage = new Stage();
+            stage.setTitle("Mis Rutinas");
+            Scene scene = new Scene(root);
+
+            // Aplicar el CSS correcto para esta vista
+            String cssPath = "/css/CrearView.css";
+            URL cssResource = getClass().getResource(cssPath);
+            if (cssResource != null) {
+                scene.getStylesheets().add(cssResource.toExternalForm());
+            }
+
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(true);
+            stage.showAndWait();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al abrir tus rutinas", e.getMessage());
+        }
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
