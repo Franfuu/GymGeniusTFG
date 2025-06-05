@@ -95,4 +95,16 @@ public class InscripcionesClaseDAO {
         session.close();
         return inscripcion;
     }
+
+    public List<InscripcionesClase> findByEstado(String estado) {
+        Connection connection = Connection.getInstance();
+        Session session = connection.getSessionFactory();
+        session.beginTransaction();
+        List<InscripcionesClase> inscripciones = session.createQuery("from InscripcionesClase i where i.estado = :estado", InscripcionesClase.class)
+                .setParameter("estado", estado)
+                .list();
+        session.getTransaction().commit();
+        session.close();
+        return inscripciones;
+    }
 }
