@@ -30,11 +30,11 @@ CREATE TABLE IF NOT EXISTS `clases` (
   `hora_fin` time DEFAULT NULL,
   `dias_semana` set('Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo') DEFAULT NULL,
   PRIMARY KEY (`id_clase`),
-  KEY `id_empleado` (`id_empleado`),
-  KEY `id_sala` (`id_sala`),
-  CONSTRAINT `clases_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`),
-  CONSTRAINT `clases_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  KEY `clases_ibfk_2` (`id_sala`),
+  KEY `clases_ibfk_1` (`id_empleado`),
+  CONSTRAINT `clases_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`) ON DELETE CASCADE,
+  CONSTRAINT `clases_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -48,11 +48,11 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `fecha_nacimiento` date DEFAULT NULL,
   `fecha_registro` date DEFAULT curdate(),
   `estado_membresia` enum('activo','suspendido') DEFAULT 'activo',
-  `contraseña` varchar(30) DEFAULT NULL,
+  `contraseña` varchar(255) DEFAULT NULL,
   `foto` longblob DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `ejercicios` (
   `descripcion` text DEFAULT NULL,
   `grupo_muscular` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ejercicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -75,11 +75,11 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   `email` varchar(100) DEFAULT NULL,
   `telefono` varchar(20) DEFAULT NULL,
   `fecha_contratacion` date DEFAULT NULL,
-  `contraseña` varchar(30) DEFAULT NULL,
+  `contraseña` varchar(255) DEFAULT NULL,
   `foto` longblob DEFAULT NULL,
   PRIMARY KEY (`id_empleado`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS `inscripciones_clases` (
   `id_clase` int(11) DEFAULT NULL,
   `fecha_inscripcion` date DEFAULT curdate(),
   PRIMARY KEY (`id_inscripcion`),
-  KEY `id_cliente` (`id_cliente`),
-  KEY `id_clase` (`id_clase`),
-  CONSTRAINT `inscripciones_clases_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
-  CONSTRAINT `inscripciones_clases_ibfk_2` FOREIGN KEY (`id_clase`) REFERENCES `clases` (`id_clase`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  KEY `inscripciones_clases_ibfk_2` (`id_clase`),
+  KEY `inscripciones_clases_ibfk_1` (`id_cliente`),
+  CONSTRAINT `inscripciones_clases_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE,
+  CONSTRAINT `inscripciones_clases_ibfk_2` FOREIGN KEY (`id_clase`) REFERENCES `clases` (`id_clase`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -107,9 +107,9 @@ CREATE TABLE IF NOT EXISTS `maquinas` (
   `id_sala` int(11) DEFAULT NULL,
   `foto` longblob DEFAULT NULL,
   PRIMARY KEY (`id_maquina`),
-  KEY `id_sala` (`id_sala`),
-  CONSTRAINT `maquinas_ibfk_1` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  KEY `maquinas_ibfk_1` (`id_sala`),
+  CONSTRAINT `maquinas_ibfk_1` FOREIGN KEY (`id_sala`) REFERENCES `salas` (`id_sala`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -122,11 +122,11 @@ CREATE TABLE IF NOT EXISTS `rutinas` (
   `descripcion` text DEFAULT NULL,
   `fecha_creacion` date DEFAULT curdate(),
   PRIMARY KEY (`id_rutina`),
-  KEY `id_cliente` (`id_cliente`),
   KEY `id_empleado` (`id_empleado`),
-  CONSTRAINT `rutinas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
+  KEY `rutinas_ibfk_1` (`id_cliente`),
+  CONSTRAINT `rutinas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE,
   CONSTRAINT `rutinas_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `rutina_ejercicios` (
   KEY `id_ejercicio` (`id_ejercicio`),
   CONSTRAINT `rutina_ejercicios_ibfk_1` FOREIGN KEY (`id_rutina`) REFERENCES `rutinas` (`id_rutina`) ON DELETE CASCADE,
   CONSTRAINT `rutina_ejercicios_ibfk_2` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `salas` (
   `capacidad_maxima` int(11) DEFAULT NULL,
   `ubicacion` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_sala`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- La exportación de datos fue deseleccionada.
 

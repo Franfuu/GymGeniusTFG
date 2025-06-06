@@ -2,6 +2,7 @@ package com.github.Franfuu.controllers;
 
 import com.github.Franfuu.App;
 import com.github.Franfuu.model.entities.Cliente;
+import com.github.Franfuu.model.utils.PasswordUtils;
 import com.github.Franfuu.services.ClienteService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -139,8 +140,7 @@ public class ClienteLoginController extends Controller implements Initializable 
             cliente.setEmail(email);
             cliente.setTelefono(telefono);
             cliente.setFechaNacimiento(java.sql.Date.valueOf(fechaNacimiento));
-            cliente.setContraseña(password);
-            cliente.setEstadoMembresia("activo");
+            cliente.setContraseña(PasswordUtils.hashPassword(password));            cliente.setEstadoMembresia("activo");
 
             // Procesar la foto si se seleccionó
             if (selectedImageFile != null) {

@@ -2,6 +2,7 @@ package com.github.Franfuu.controllers;
 
 import com.github.Franfuu.App;
 import com.github.Franfuu.model.entities.Empleado;
+import com.github.Franfuu.model.utils.PasswordUtils;
 import com.github.Franfuu.services.EmpleadoService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -131,7 +132,7 @@ public class EmpleadoLoginController extends Controller implements Initializable
             empleado.setEmail(email);
             empleado.setTelefono(telefono);
             empleado.setFechaContratacion(Date.valueOf(fechaContratacion).toLocalDate());
-            empleado.setContraseña(password);
+            empleado.setContraseña(PasswordUtils.hashPassword(password));
 
             // Procesar la foto si se seleccionó
             if (selectedImageFile != null) {

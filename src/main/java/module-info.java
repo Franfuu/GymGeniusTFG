@@ -10,6 +10,7 @@ module com.github.Franfuu {
     requires java.naming;
     requires java.persistence;
     requires org.apache.poi.ooxml;
+    requires jbcrypt;
 
     opens com.github.Franfuu.controllers to javafx.fxml;
     exports com.github.Franfuu.controllers;
