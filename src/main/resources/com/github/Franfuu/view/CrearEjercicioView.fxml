@@ -63,8 +63,8 @@
             <padding>
                 <Insets top="15.0" />
             </padding>
-            <Button fx:id="btnCancelar" text="Cancelar" onAction="#cancelar" styleClass="menu-button" />
-            <Button fx:id="btnGuardar" text="Guardar" onAction="#guardarEjercicio" styleClass="menu-button" />
+                <Button fx:id="guardarButton" onAction="#guardarEjercicio" styleClass="menu-button" text="Guardar" />
+                <Button fx:id="cancelarButton" onAction="#cancelar" text="Cancelar" />
         </HBox>
     </VBox>
 </AnchorPane>

@@ -453,10 +453,17 @@ public class RutinasController extends Controller implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/Franfuu/view/CrearEjercicioView.fxml"));
             Parent root = loader.load();
 
-            // Asegúrate de que el CSS existe y tiene la ruta correcta
+            // Crear la escena
             Scene scene = new Scene(root);
-            if (getClass().getResource("/css/empleado-mainpage.css") != null) {
-                scene.getStylesheets().add(getClass().getResource("/css/empleado-mainpage.css").toExternalForm());
+
+            // Aplicar estilos CSS de manera más robusta
+            try {
+                String cssUrl = getClass().getResource("/css/CrearView.css").toExternalForm();
+                scene.getStylesheets().clear();  // Limpiar cualquier estilo previo
+                scene.getStylesheets().add(cssUrl);
+                System.out.println("CSS aplicado correctamente: " + cssUrl);
+            } catch (Exception cssEx) {
+                System.err.println("Error al cargar el CSS: " + cssEx.getMessage());
             }
 
             Stage modalStage = new Stage();
@@ -466,15 +473,18 @@ public class RutinasController extends Controller implements Initializable {
             modalStage.setScene(scene);
             modalStage.setResizable(false);
 
+            // Forzar la aplicación de estilos
+            scene.getRoot().applyCss();
+
             // Actualizar la tabla de ejercicios cuando se cierre el modal
             modalStage.setOnHidden(e -> cargarEjercicios());
 
             modalStage.showAndWait();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error",
-                     "Error al abrir el formulario de creación",
-                     "Detalles: " + e.getMessage());
-            e.printStackTrace(); // Para ver el error completo en la consola
+                    "Error al abrir el formulario de creación",
+                    "Detalles: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
